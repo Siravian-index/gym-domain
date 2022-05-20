@@ -16,7 +16,7 @@ public class TrainerChange extends EventChange {
         });
 
         apply((ClientAdded event) -> {
-            Client client = new Client(new ClientID(), event.getName(), event.getFitnessLevel(), event.getPhoneNumber());
+            Client client = new Client(event.getClientID(), event.getName(), event.getFitnessLevel(), event.getPhoneNumber());
             trainer.clientSet.add(client);
         });
 

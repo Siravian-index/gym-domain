@@ -3,17 +3,16 @@ package com.zen.gymdomain.trainer.usecases;
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.zen.gymdomain.trainer.Trainer;
 import com.zen.gymdomain.trainer.commands.CreateTrainer;
-import com.zen.gymdomain.trainer.entities.Routine;
 import com.zen.gymdomain.trainer.events.TrainerCreated;
-import com.zen.gymdomain.trainer.values.*;
+import com.zen.gymdomain.trainer.values.Name;
+import com.zen.gymdomain.trainer.values.TrainerID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CreateTrainerUseCaseTest {
     private CreateTrainerUseCase useCase;

@@ -34,7 +34,8 @@ public class Trainer extends AggregateEvent<TrainerID> {
     }
 //  events
     public void addClient(Name name, FitnessLevel fitnessLevel, PhoneNumber phoneNumber) {
-        appendChange(new ClientAdded(name, fitnessLevel, phoneNumber)).apply();
+        ClientID clientID = new ClientID();
+        appendChange(new ClientAdded(clientID, name, fitnessLevel, phoneNumber)).apply();
     }
 
     public void removeClient(ClientID clientID) {
