@@ -2,6 +2,7 @@ package com.zen.gymdomain.frontdesk;
 
 import co.com.sofka.domain.generic.EventChange;
 import com.zen.gymdomain.frontdesk.entities.Membership;
+import com.zen.gymdomain.frontdesk.entities.Merchandise;
 import com.zen.gymdomain.frontdesk.events.*;
 
 import java.util.HashSet;
@@ -44,6 +45,21 @@ public class FrontDeskChange extends EventChange {
             frontDesk.merchandiseSet.removeIf(merchandise -> merchandise.identity().equals(event.getMerchandiseID()));
         });
 
+        apply((MerchandiseProductUpdated event) -> {
+            Merchandise merchandise1 = frontDesk.merchandiseSet.stream().filter(merchandise -> merchandise.identity().equals(event.getMerchandiseID())).findFirst().orElseThrow();
+            merchandise1.updateProduct(event.getProduct());
+            frontDesk.merchandiseSet.removeIf(merchandise -> merchandise.identity().equals(event.getMerchandiseID()));
+            frontDesk.merchandiseSet.add(merchandise1);
+        });
+
+        apply((MerchandisePriceUpdated event) -> {
+            Merchandise merchandise1 = frontDesk.merchandiseSet.stream()
+                    .filter(merchandise -> merchandise.identity().equals(event.getMerchandiseID()))
+                    .findFirst().orElseThrow();
+            merchandise1.updatePrice(event.getPrice());
+            frontDesk.merchandiseSet.removeIf(m -> m.identity().equals(event.getMerchandiseID()));
+            frontDesk.merchandiseSet.add(merchandise1);
+        });
 
     }
 }
