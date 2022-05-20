@@ -15,4 +15,17 @@ public class IsCompleted implements ValueObject<Boolean> {
     public Boolean value() {
         return this.value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IsCompleted that = (IsCompleted) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
 }

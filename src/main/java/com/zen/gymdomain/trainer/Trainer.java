@@ -57,15 +57,15 @@ public class Trainer extends AggregateEvent<TrainerID> {
     }
 
     public void updateRoutineDescription(Description description) {
-
+        appendChange(new RoutineDescriptionUpdated(description)).apply();
     }
 
     public void updateRoutineIsCompleted(IsCompleted isCompleted) {
-
+        appendChange(new RoutineIsCompletedUpdated(isCompleted)).apply();
     }
 
     public void updateRoutineType(Type type) {
-
+        appendChange(new RoutineTypeUpdated(type)).apply();
     }
 
     //    findById methods

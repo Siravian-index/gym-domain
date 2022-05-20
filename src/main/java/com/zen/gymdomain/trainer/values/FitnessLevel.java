@@ -15,6 +15,19 @@ public class FitnessLevel implements ValueObject<FitnessLevelEnum> {
     public FitnessLevelEnum value() {
         return this.value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FitnessLevel that = (FitnessLevel) o;
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
 }
 
 enum FitnessLevelEnum {

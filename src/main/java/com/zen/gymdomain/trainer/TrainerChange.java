@@ -39,5 +39,17 @@ public class TrainerChange extends EventChange {
         apply((RoutineAdded event) -> {
             trainer.routine = event.getRoutine();
         });
+
+        apply((RoutineDescriptionUpdated event) -> {
+            trainer.routine.updateDescription(event.getDescription());
+        });
+
+        apply((RoutineIsCompletedUpdated event) -> {
+            trainer.routine.updateIsCompleted(event.getIsCompleted());
+        });
+
+        apply((RoutineTypeUpdated event) -> {
+            trainer.routine.updateType(event.getType());
+        });
     }
 }
