@@ -1,9 +1,8 @@
 package com.zen.gymdomain.trainer;
 
 import co.com.sofka.domain.generic.EventChange;
-import com.zen.gymdomain.trainer.events.ClientAdded;
-import com.zen.gymdomain.trainer.events.ClientRemoved;
-import com.zen.gymdomain.trainer.events.TrainerCreated;
+import com.zen.gymdomain.trainer.entities.Client;
+import com.zen.gymdomain.trainer.events.*;
 
 import java.util.HashSet;
 
@@ -20,6 +19,25 @@ public class TrainerChange extends EventChange {
 
         apply((ClientRemoved event) -> {
             trainer.clientSet.removeIf(client -> client.identity().equals(event.getClientID()));
+        });
+
+        apply((ClientFitnessLevelUpdated event) -> {
+            Client client = trainer.findClientById(event.getClientID()).orElseThrow();
+            client.updateFitnessLevel(event.getFitnessLevel());
+        });
+
+        apply((ClientPhoneNumberUpdated event) -> {
+            Client client = trainer.findClientById(event.getClientID()).orElseThrow();
+            client.updatePhoneNumber(event.getPhoneNumber());
+        });
+
+        apply((ClientNameUpdated event) -> {
+            Client client = trainer.findClientById(event.getClientID()).orElseThrow();
+            client.updateName(event.getName());
+        });
+
+        apply((RoutineAdded event) -> {
+            trainer.routine = event.getRoutine();
         });
     }
 }

@@ -8,6 +8,7 @@ public class TrainerCreated extends DomainEvent {
     private final TrainerID trainerID;
     private final Routine routine;
 
+
     public TrainerCreated(TrainerID trainerID, Routine routine) {
         super("com.zen.gymdomain.trainer.trainercreated");
         this.trainerID = trainerID;

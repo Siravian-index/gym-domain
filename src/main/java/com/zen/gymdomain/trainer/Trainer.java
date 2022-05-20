@@ -4,12 +4,11 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.zen.gymdomain.trainer.entities.Client;
 import com.zen.gymdomain.trainer.entities.Routine;
-import com.zen.gymdomain.trainer.events.ClientAdded;
-import com.zen.gymdomain.trainer.events.ClientRemoved;
-import com.zen.gymdomain.trainer.events.TrainerCreated;
+import com.zen.gymdomain.trainer.events.*;
 import com.zen.gymdomain.trainer.values.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class Trainer extends AggregateEvent<TrainerID> {
@@ -35,33 +34,43 @@ public class Trainer extends AggregateEvent<TrainerID> {
 
     public void addClient(Client client) {
         appendChange(new ClientAdded(client)).apply();
-//        this.clientSet.add(client);
     }
 
     public void removeClient(ClientID clientID) {
         appendChange(new ClientRemoved(clientID)).apply();
     }
 
-    public void updateClientFitnessLevel(Client client, FitnessLevel fitnessLevel) {
-        client.updateFitnessLevel(fitnessLevel);
+    public void updateClientFitnessLevel(ClientID clientID, FitnessLevel fitnessLevel) {
+        appendChange(new ClientFitnessLevelUpdated(clientID, fitnessLevel)).apply();
     }
 
-    public void updateClientPhoneNumber(Client client, PhoneNumber phoneNumber) {
-        client.updatePhoneNumber(phoneNumber);
+    public void updateClientPhoneNumber(ClientID clientID, PhoneNumber phoneNumber) {
+        appendChange(new ClientPhoneNumberUpdated(clientID, phoneNumber)).apply();
     }
 
-    public void updateClientName(Client client, Name name) {
-        client.updateName(name);
+    public void updateClientName(ClientID clientID, Name name) {
+        appendChange(new ClientNameUpdated(clientID, name)).apply();
     }
 
     public void addRoutine(Routine routine) {
-        this.routine = routine;
+        appendChange(new RoutineAdded(routine)).apply();
     }
 
-//    public void update
+    public void updateRoutineDescription(Description description) {
 
+    }
 
-//    findById methods
+    public void updateRoutineIsCompleted(IsCompleted isCompleted) {
 
+    }
+
+    public void updateRoutineType(Type type) {
+
+    }
+
+    //    findById methods
+    public Optional<Client> findClientById(ClientID clientID) {
+        return this.clientSet.stream().filter(client -> client.identity().equals(clientID)).findFirst();
+    }
 
 }
