@@ -69,7 +69,7 @@ public class Trainer extends AggregateEvent<TrainerID> {
     }
 
     //    findById methods
-    public Optional<Client> findClientById(ClientID clientID) {
+    protected Optional<Client> findClientById(ClientID clientID) {
         return this.clientSet.stream().filter(client -> client.identity().equals(clientID)).findFirst();
     }
 
