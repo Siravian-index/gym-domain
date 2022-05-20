@@ -19,7 +19,7 @@ public class Trainer extends AggregateEvent<TrainerID> {
 
     public Trainer(TrainerID entityId, Name name) {
         super(entityId);
-        appendChange(new TrainerCreated(entityId, name)).apply();
+        appendChange(new TrainerCreated(name)).apply();
     }
 
     private Trainer(TrainerID entityId) {

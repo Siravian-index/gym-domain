@@ -30,6 +30,3 @@ public class FitnessLevel implements ValueObject<FitnessLevelEnum> {
     }
 }
 
-enum FitnessLevelEnum {
-    LOW, MEDIUM, HIGH
-}

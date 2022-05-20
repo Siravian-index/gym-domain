@@ -25,10 +25,8 @@ class CreateTrainerUseCaseTest {
     @Test
     public void createTrainerSuccessfully() {
 //        given
-        String trainerName = "Juan";
-        String fakeID = "xxxxx";
-        TrainerID trainerID = TrainerID.of(fakeID);
-        Name name = new Name(trainerName);
+        TrainerID trainerID = TrainerID.of("fakeTrainerID");
+        Name name = new Name("Juan");
         CreateTrainer command = new CreateTrainer(trainerID, name);
 //        when
         List<DomainEvent> domainEvents = UseCaseHandler.getInstance()
@@ -38,8 +36,8 @@ class CreateTrainerUseCaseTest {
 
 //        assert
         TrainerCreated trainerCreated = (TrainerCreated) domainEvents.get(0);
-        assertEquals(fakeID, trainerCreated.aggregateRootId());
-        assertEquals(trainerName, trainerCreated.getName().value());
+        assertEquals("fakeTrainerID", trainerCreated.aggregateRootId());
+        assertEquals("Juan", trainerCreated.getName().value());
     }
 
 }
