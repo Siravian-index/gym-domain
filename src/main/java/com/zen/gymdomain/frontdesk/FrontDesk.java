@@ -60,6 +60,5 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
 
     public void updateMerchandisePrice(MerchandiseID merchandiseID, Price price) {
         appendChange(new MerchandisePriceUpdated(merchandiseID, price)).apply();
-
     }
 }
