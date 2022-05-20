@@ -29,7 +29,7 @@ public class Diet extends Entity<DietID> {
         return description;
     }
 
-    public void description(Description description) {
+    public void updateDescription(Description description) {
         this.description = Objects.requireNonNull(description);
     }
 }
