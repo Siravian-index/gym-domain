@@ -4,10 +4,10 @@ import co.com.sofka.domain.generic.ValueObject;
 
 import java.util.Objects;
 
-public class isWaiting implements ValueObject<Boolean> {
+public class IsWaiting implements ValueObject<Boolean> {
     private final Boolean value;
 
-    public isWaiting(Boolean value) {
+    public IsWaiting(Boolean value) {
         this.value = Objects.requireNonNull(value);
     }
 
