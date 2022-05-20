@@ -11,7 +11,7 @@ public class CreateTrainerUseCase extends UseCase<RequestCommand<CreateTrainer>,
     public void executeUseCase(RequestCommand<CreateTrainer> createTrainerRequestCommand) {
         var command = createTrainerRequestCommand.getCommand();
 
-        var trainer = new Trainer(command.getEntityId(), command.getRoutine());
+        var trainer = new Trainer(command.getEntityId(), command.getName());
 
         emit().onResponse(new ResponseEvents(trainer.getUncommittedChanges()));
     }

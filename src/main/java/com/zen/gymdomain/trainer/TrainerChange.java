@@ -2,6 +2,7 @@ package com.zen.gymdomain.trainer;
 
 import co.com.sofka.domain.generic.EventChange;
 import com.zen.gymdomain.trainer.entities.Client;
+import com.zen.gymdomain.trainer.entities.Routine;
 import com.zen.gymdomain.trainer.events.*;
 
 import java.util.HashSet;
@@ -9,7 +10,7 @@ import java.util.HashSet;
 public class TrainerChange extends EventChange {
     TrainerChange(Trainer trainer) {
         apply((TrainerCreated event) -> {
-            trainer.routine = event.getRoutine();
+            trainer.name = event.getName();
             trainer.clientSet = new HashSet<>();
         });
 

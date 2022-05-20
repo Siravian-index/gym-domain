@@ -26,13 +26,11 @@ class CreateTrainerUseCaseTest {
     @Test
     public void createTrainerSuccessfully() {
 //        given
-        TrainerID trainerID = TrainerID.of("xxxxx");
-        RoutineID id = RoutineID.of("routine1");
-        Description description = new Description("Some cardio for the body");
-        Type type = new Type(TypeEnum.CARDIO);
-        Routine routine = new Routine(id, description, type);
-
-        CreateTrainer command = new CreateTrainer(trainerID, routine);
+        String trainerName = "Juan";
+        String fakeID = "xxxxx";
+        TrainerID trainerID = TrainerID.of(fakeID);
+        Name name = new Name(trainerName);
+        CreateTrainer command = new CreateTrainer(trainerID, name);
 //        when
         List<DomainEvent> domainEvents = UseCaseHandler.getInstance()
                 .syncExecutor(useCase, new RequestCommand<>(command))
@@ -41,9 +39,8 @@ class CreateTrainerUseCaseTest {
 
 //        assert
         TrainerCreated trainerCreated = (TrainerCreated) domainEvents.get(0);
-        assertEquals("xxxxx", trainerCreated.aggregateRootId());
-        assertEquals("routine1", trainerCreated.getRoutine().identity().value());
-        assertEquals("Some cardio for the body", trainerCreated.getRoutine().description().value());
+        assertEquals(fakeID, trainerCreated.aggregateRootId());
+        assertEquals(trainerName, trainerCreated.getName().value());
     }
 
 }

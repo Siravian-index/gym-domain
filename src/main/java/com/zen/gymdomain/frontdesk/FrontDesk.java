@@ -13,7 +13,7 @@ import java.util.Set;
 public class FrontDesk extends AggregateEvent<FrontDeskID> {
     protected Set<Merchandise> merchandiseSet;
     protected Set<Membership> membershipSet;
-    public FrontDesk(FrontDeskID entityId, Set<Membership> membershipSet) {
+    public FrontDesk(FrontDeskID entityId, Set<Membership> membershipSet) { //change this
         super(entityId);
         appendChange(new FrontDeskCreated(entityId, membershipSet)).apply();
 
@@ -30,7 +30,7 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
     }
 
 //    events
-    public void addMembership(Membership membership) {
+    public void addMembership(Membership membership) { //change this
         appendChange(new MembershipAdded(membership)).apply();
     }
 
@@ -46,7 +46,7 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
         appendChange(new MembershipPriceUpdated(membershipID, price)).apply();
     }
 
-    public void addMerchandise(Merchandise merchandise) {
+    public void addMerchandise(Merchandise merchandise) { //change this
         appendChange(new MerchandiseAdded(merchandise)).apply();
     }
 

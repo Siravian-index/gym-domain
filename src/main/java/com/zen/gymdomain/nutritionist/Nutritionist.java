@@ -19,7 +19,7 @@ public class Nutritionist extends AggregateEvent<NutritionistID> {
     protected Set<Patient> patientSet;
     protected Map<PatientID, Diet> dietMap;
 
-    public Nutritionist(NutritionistID entityId, Set<Patient> patientSet) {
+    public Nutritionist(NutritionistID entityId, Set<Patient> patientSet) { //change this
         super(entityId);
         appendChange(new NutritionistCreated(entityId, patientSet)).apply();
     }
@@ -35,7 +35,7 @@ public class Nutritionist extends AggregateEvent<NutritionistID> {
         return nutritionist;
     }
 
-    public void addPatient(Patient patient, Diet diet) {
+    public void addPatient(Patient patient, Diet diet) { //change this
         appendChange(new PatientAdded(patient, diet)).apply();
     }
 

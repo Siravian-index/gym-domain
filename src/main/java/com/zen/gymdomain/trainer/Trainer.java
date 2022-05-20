@@ -15,9 +15,11 @@ public class Trainer extends AggregateEvent<TrainerID> {
     protected Set<Client> clientSet;
     protected Routine routine;
 
-    public Trainer(TrainerID entityId, Routine routine) {
+    protected Name name;
+
+    public Trainer(TrainerID entityId, Name name) {
         super(entityId);
-        appendChange(new TrainerCreated(entityId, routine)).apply();
+        appendChange(new TrainerCreated(entityId, name)).apply();
     }
 
     private Trainer(TrainerID entityId) {
@@ -32,7 +34,7 @@ public class Trainer extends AggregateEvent<TrainerID> {
     }
 //  events
 
-    public void addClient(Client client) {
+    public void addClient(Client client) { //change this
         appendChange(new ClientAdded(client)).apply();
     }
 
@@ -52,7 +54,7 @@ public class Trainer extends AggregateEvent<TrainerID> {
         appendChange(new ClientNameUpdated(clientID, name)).apply();
     }
 
-    public void addRoutine(Routine routine) {
+    public void addRoutine(Routine routine) { //change this
         appendChange(new RoutineAdded(routine)).apply();
     }
 
