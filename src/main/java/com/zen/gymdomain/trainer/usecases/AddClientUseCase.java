@@ -12,7 +12,7 @@ public class AddClientUseCase extends UseCase<RequestCommand<AddClient>, Respons
         var command = addClientRequestCommand.getCommand();
         Trainer trainer = Trainer.from(command.getTrainerID(), repository().getEventsBy(command.getTrainerID().value()));
 
-        trainer.addClient(command.getClient());
+        trainer.addClient(command.getName(), command.getFitnessLevel(), command.getPhoneNumber());
 
         emit().onResponse(new ResponseEvents(trainer.getUncommittedChanges()));
 

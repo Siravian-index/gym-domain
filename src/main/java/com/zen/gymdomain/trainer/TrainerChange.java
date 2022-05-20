@@ -4,6 +4,7 @@ import co.com.sofka.domain.generic.EventChange;
 import com.zen.gymdomain.trainer.entities.Client;
 import com.zen.gymdomain.trainer.entities.Routine;
 import com.zen.gymdomain.trainer.events.*;
+import com.zen.gymdomain.trainer.values.ClientID;
 
 import java.util.HashSet;
 
@@ -15,9 +16,8 @@ public class TrainerChange extends EventChange {
         });
 
         apply((ClientAdded event) -> {
-//            toca crear el cliente aca con los objectos de valor
-//            y despues agregarlo al Set
-            trainer.clientSet.add(event.getClient());
+            Client client = new Client(new ClientID(), event.getName(), event.getFitnessLevel(), event.getPhoneNumber());
+            trainer.clientSet.add(client);
         });
 
         apply((ClientRemoved event) -> {
