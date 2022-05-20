@@ -10,10 +10,11 @@ public class AddClientUseCase extends UseCase<RequestCommand<AddClient>, Respons
     @Override
     public void executeUseCase(RequestCommand<AddClient> addClientRequestCommand) {
         var command = addClientRequestCommand.getCommand();
-//        Trainer.from(command.getTrainerID(), );
+        Trainer trainer = Trainer.from(command.getTrainerID(), repository().getEventsBy(command.getTrainerID().value()));
 
+        trainer.addClient(command.getClient());
 
-//        ClientAdded clientAdded = new ClientAdded(command.getClient());
-//        emit().onResponse(new ResponseEvents(clientAdded.ge));
+        emit().onResponse(new ResponseEvents(trainer.getUncommittedChanges()));
+
     }
 }

@@ -14,6 +14,8 @@ public class TrainerChange extends EventChange {
         });
 
         apply((ClientAdded event) -> {
+//            toca crear el cliente aca con los objectos de valor
+//            y despues agregarlo al Set
             trainer.clientSet.add(event.getClient());
         });
 
