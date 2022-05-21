@@ -6,11 +6,10 @@ import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.zen.gymdomain.trainer.commands.RemoveClient;
 import com.zen.gymdomain.trainer.entities.Client;
+import com.zen.gymdomain.trainer.events.ClientAdded;
 import com.zen.gymdomain.trainer.events.ClientRemoved;
 import com.zen.gymdomain.trainer.events.TrainerCreated;
-import com.zen.gymdomain.trainer.values.ClientID;
-import com.zen.gymdomain.trainer.values.Name;
-import com.zen.gymdomain.trainer.values.TrainerID;
+import com.zen.gymdomain.trainer.values.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +38,11 @@ class RemoveClientUseCaseTest {
         ClientID clientID = ClientID.of("fakeClientID");
         var command = new RemoveClient(trainerID, clientID);
 
-        when(repository.getEventsBy("fakeTrainerID")).thenReturn(history());
+        when(repository.getEventsBy("fakeTrainerID")).thenReturn(List.of(
+                new TrainerCreated(new Name("Juan")),
+                new ClientAdded(clientID, new Name("david"), new FitnessLevel(FitnessLevelEnum.HIGH), new PhoneNumber("3119878788")),
+                new ClientAdded(ClientID.of("anotherID"), new Name("carlos"), new FitnessLevel(FitnessLevelEnum.MEDIUM), new PhoneNumber("3113434543"))
+        ));
         useCase.addRepository(repository);
 //        when
         var events = UseCaseHandler.getInstance()
@@ -49,16 +52,7 @@ class RemoveClientUseCaseTest {
                 .getDomainEvents();
 //        assert
         var event = (ClientRemoved) events.get(0);
-        assertEquals(event.getClientID().value(), clientID.value());
         assertEquals(event.getClientID(), clientID);
     }
 
-
-    private List<DomainEvent> history() {
-        TrainerID trainerID = TrainerID.of("fakeTrainerID");
-        Name name = new Name("Juan");
-        var event = new TrainerCreated(name);
-        event.setAggregateRootId(trainerID.value());
-        return List.of(event);
-    }
 }
