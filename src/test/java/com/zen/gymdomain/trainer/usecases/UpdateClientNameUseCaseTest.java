@@ -5,10 +5,13 @@ import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.zen.gymdomain.trainer.commands.UpdateClientFitnessLevel;
+import com.zen.gymdomain.trainer.commands.UpdateClientName;
 import com.zen.gymdomain.trainer.events.ClientAdded;
 import com.zen.gymdomain.trainer.events.ClientFitnessLevelUpdated;
+import com.zen.gymdomain.trainer.events.ClientNameUpdated;
 import com.zen.gymdomain.trainer.events.TrainerCreated;
 import com.zen.gymdomain.trainer.values.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,23 +22,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
-class UpdateClientFitnessLevelUseCaseTest {
+class UpdateClientNameUseCaseTest {
 
     @InjectMocks
-    private UpdateClientFitnessLevelUseCase useCase;
-
+    private UpdateClientNameUseCase useCase;
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void updateClientFitnessLevelSuccessfully() {
+    void updateClientNameSuccessfully() {
 
         TrainerID fakeTrainerID = TrainerID.of("fakeTrainerID");
         ClientID fakeClientID = ClientID.of("fakeClientID");
-        FitnessLevel updatedFitnessLevel = new FitnessLevel(FitnessLevelEnum.HIGH);
+        Name name = new Name("davinchi");
 
-        var command = new UpdateClientFitnessLevel(fakeTrainerID, fakeClientID, updatedFitnessLevel);
+        var command = new UpdateClientName(fakeTrainerID, fakeClientID, name);
 
         Mockito.when(repository.getEventsBy("fakeTrainerID")).thenReturn(List.of(
                 new TrainerCreated(new Name("Juan")),
@@ -51,9 +54,8 @@ class UpdateClientFitnessLevelUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var event = (ClientFitnessLevelUpdated) domainEvents.get(0);
-        assertEquals(FitnessLevelEnum.HIGH, event.getFitnessLevel().value());
+        var event = (ClientNameUpdated) domainEvents.get(0);
+        assertEquals("davinchi", event.getName().value());
         assertEquals("fakeClientID", event.getClientID().value());
     }
-
 }
