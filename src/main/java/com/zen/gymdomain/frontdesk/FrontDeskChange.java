@@ -11,7 +11,8 @@ public class FrontDeskChange extends EventChange {
 
     public FrontDeskChange(FrontDesk frontDesk) {
         apply((FrontDeskCreated event) -> {
-            frontDesk.membershipSet = event.getMembershipSet();
+            frontDesk.name = event.getName();
+            frontDesk.membershipSet = new HashSet<>();
             frontDesk.merchandiseSet = new HashSet<>();
         });
 

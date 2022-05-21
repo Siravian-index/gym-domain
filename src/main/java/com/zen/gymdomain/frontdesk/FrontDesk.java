@@ -6,6 +6,7 @@ import com.zen.gymdomain.frontdesk.entities.Membership;
 import com.zen.gymdomain.frontdesk.entities.Merchandise;
 import com.zen.gymdomain.frontdesk.events.*;
 import com.zen.gymdomain.frontdesk.values.*;
+import com.zen.gymdomain.trainer.values.Name;
 
 import java.util.List;
 import java.util.Set;
@@ -13,9 +14,10 @@ import java.util.Set;
 public class FrontDesk extends AggregateEvent<FrontDeskID> {
     protected Set<Merchandise> merchandiseSet;
     protected Set<Membership> membershipSet;
-    public FrontDesk(FrontDeskID entityId, Set<Membership> membershipSet) { //change this
+    protected Name name;
+    public FrontDesk(FrontDeskID entityId, Name name) {
         super(entityId);
-        appendChange(new FrontDeskCreated(entityId, membershipSet)).apply();
+        appendChange(new FrontDeskCreated(name)).apply();
 
     }
     private FrontDesk(FrontDeskID entityId) {
