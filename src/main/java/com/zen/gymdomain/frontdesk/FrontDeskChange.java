@@ -17,7 +17,8 @@ public class FrontDeskChange extends EventChange {
         });
 
         apply((MembershipAdded event) -> {
-            frontDesk.membershipSet.add(event.getMembership());
+            Membership membership = new Membership(event.getMembershipID(), event.getTier(), event.getPrice());
+            frontDesk.membershipSet.add(membership);
         });
 
         apply((MembershipRemoved event) -> {
