@@ -57,5 +57,6 @@ class UpdateClientNameUseCaseTest {
         var event = (ClientNameUpdated) domainEvents.get(0);
         assertEquals("davinchi", event.getName().value());
         assertEquals("fakeClientID", event.getClientID().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 }

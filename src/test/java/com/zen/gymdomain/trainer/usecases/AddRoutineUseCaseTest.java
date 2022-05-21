@@ -49,6 +49,7 @@ class AddRoutineUseCaseTest {
         var event = (RoutineAdded) domainEvents.get(0);
         assertEquals("routine test case#1", event.getDescription().value());
         assertEquals(TypeEnum.CARDIO, event.getType().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 
     private List<DomainEvent> history() {

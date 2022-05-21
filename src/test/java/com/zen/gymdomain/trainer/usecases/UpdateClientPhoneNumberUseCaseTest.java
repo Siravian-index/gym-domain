@@ -56,5 +56,6 @@ class UpdateClientPhoneNumberUseCaseTest {
         var event = (ClientPhoneNumberUpdated) domainEvents.get(0);
         assertEquals("3131111111", event.getPhoneNumber().value());
         assertEquals("fakeClientID", event.getClientID().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 }

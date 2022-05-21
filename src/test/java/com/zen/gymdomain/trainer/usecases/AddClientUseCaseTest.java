@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -27,6 +28,7 @@ class AddClientUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
+
     @Test
     void addClientToTrainerSuccessfully() {
 //        given
@@ -50,6 +52,7 @@ class AddClientUseCaseTest {
         assertEquals("Maria", event.getName().value());
         assertEquals("312987657", event.getPhoneNumber().value());
         assertEquals(FitnessLevelEnum.HIGH, event.getFitnessLevel().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 
     private List<DomainEvent> history() {

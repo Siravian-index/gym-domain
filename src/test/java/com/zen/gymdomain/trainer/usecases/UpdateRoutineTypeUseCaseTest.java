@@ -52,5 +52,6 @@ class UpdateRoutineTypeUseCaseTest {
 
         var event = (RoutineTypeUpdated) domainEvents.get(0);
         assertEquals(TypeEnum.FLEXIBILITY, event.getType().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 }

@@ -51,5 +51,6 @@ class UpdateRoutineDescriptionUseCaseTest {
 
         var event = (RoutineDescriptionUpdated) domainEvents.get(0);
         assertEquals("updated description", event.getDescription().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 }

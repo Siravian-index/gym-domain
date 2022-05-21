@@ -50,5 +50,6 @@ class UpdateRoutineIsCompletedUseCaseTest {
 
         var event = (RoutineIsCompletedUpdated) domainEvents.get(0);
         assertEquals(true, event.getIsCompleted().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 }

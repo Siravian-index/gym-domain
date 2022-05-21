@@ -58,6 +58,7 @@ class RemoveClientUseCaseTest {
 
         var event = (ClientRemoved) domainEvents.get(0);
         assertEquals("fakeClientID", event.getClientID().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 
 }

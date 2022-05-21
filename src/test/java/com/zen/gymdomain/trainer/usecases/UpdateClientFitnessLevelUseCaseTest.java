@@ -54,6 +54,7 @@ class UpdateClientFitnessLevelUseCaseTest {
         var event = (ClientFitnessLevelUpdated) domainEvents.get(0);
         assertEquals(FitnessLevelEnum.HIGH, event.getFitnessLevel().value());
         assertEquals("fakeClientID", event.getClientID().value());
+        Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 
 }
