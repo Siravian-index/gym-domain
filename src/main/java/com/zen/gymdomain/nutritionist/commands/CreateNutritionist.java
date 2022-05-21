@@ -3,23 +3,24 @@ package com.zen.gymdomain.nutritionist.commands;
 import co.com.sofka.domain.generic.Command;
 import com.zen.gymdomain.nutritionist.entities.Patient;
 import com.zen.gymdomain.nutritionist.values.NutritionistID;
+import com.zen.gymdomain.trainer.values.Name;
 
 import java.util.Set;
 
 public class CreateNutritionist extends Command {
     private final NutritionistID entityId;
-    private final Set<Patient> patientSet;
+    private final Name name;
 
-    public CreateNutritionist(NutritionistID entityId, Set<Patient> patientSet) {
+    public CreateNutritionist(NutritionistID entityId, Name name) {
         this.entityId = entityId;
-        this.patientSet = patientSet;
+        this.name = name;
     }
 
     public NutritionistID getEntityId() {
         return entityId;
     }
 
-    public Set<Patient> getPatientSet() {
-        return patientSet;
+    public Name getName() {
+        return name;
     }
 }

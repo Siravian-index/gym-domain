@@ -10,6 +10,7 @@ import com.zen.gymdomain.nutritionist.values.NutritionistID;
 import com.zen.gymdomain.nutritionist.values.PatientID;
 import com.zen.gymdomain.nutritionist.values.WeightStatus;
 import com.zen.gymdomain.trainer.values.Description;
+import com.zen.gymdomain.trainer.values.Name;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,11 @@ import java.util.Set;
 public class Nutritionist extends AggregateEvent<NutritionistID> {
     protected Set<Patient> patientSet;
     protected Map<PatientID, Diet> dietMap;
+    protected Name name;
 
-    public Nutritionist(NutritionistID entityId, Set<Patient> patientSet) { //change this
+    public Nutritionist(NutritionistID entityId, Name name) { //change this
         super(entityId);
-        appendChange(new NutritionistCreated(entityId, patientSet)).apply();
+        appendChange(new NutritionistCreated(name)).apply();
     }
 
     private Nutritionist(NutritionistID entityId) {
