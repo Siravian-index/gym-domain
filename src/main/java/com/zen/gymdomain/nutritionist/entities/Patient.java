@@ -13,8 +13,11 @@ public class Patient extends Entity<PatientID> {
     protected Name name;
     protected IsWaiting isWaiting;
 
-    public Patient(PatientID entityId) {
+    public Patient(PatientID entityId, Name name, WeightStatus weightStatus) {
         super(entityId);
+        this.name = name;
+        this.weightStatus = weightStatus;
+        this.isWaiting = new IsWaiting(false);
     }
 
     public WeightStatus weightStatus() {

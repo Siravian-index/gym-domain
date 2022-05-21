@@ -19,10 +19,10 @@ public class NutritionistChange extends EventChange {
         });
 
         apply((PatientAdded event) -> {
-            nutritionist.patientSet.add(event.getPatient());
-            PatientID key = event.getPatient().identity();
-            Diet value = event.getDiet();
-            nutritionist.dietMap.put(key, value);
+            Patient patient = new Patient(event.getPatientID(), event.getName(), event.getWeightStatus());
+            Diet diet = new Diet(event.getDietID(), event.getDietType(), event.getDescription());
+            nutritionist.patientSet.add(patient);
+            nutritionist.dietMap.put(event.getPatientID(), diet);
         });
 
         apply((PatientRemoved event) -> {
