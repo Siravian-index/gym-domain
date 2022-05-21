@@ -1,26 +1,25 @@
 package com.zen.gymdomain.frontdesk.commands;
 
 import co.com.sofka.domain.generic.Command;
-import com.zen.gymdomain.frontdesk.entities.Membership;
 import com.zen.gymdomain.frontdesk.values.FrontDeskID;
-
-import java.util.Set;
+import com.zen.gymdomain.trainer.values.Name;
 
 public class CreateFrontDesk extends Command {
 
-    private final FrontDeskID entityId;
-    private final Set<Membership> membershipSet;
 
-    public CreateFrontDesk(FrontDeskID entityId, Set<Membership> membershipSet) {
+    private final FrontDeskID entityId;
+    private final Name name;
+
+    public CreateFrontDesk(FrontDeskID entityId, Name name) {
         this.entityId = entityId;
-        this.membershipSet = membershipSet;
+        this.name = name;
     }
 
     public FrontDeskID getEntityId() {
         return entityId;
     }
 
-    public Set<Membership> getMembershipSet() {
-        return membershipSet;
+    public Name getName() {
+        return name;
     }
 }
