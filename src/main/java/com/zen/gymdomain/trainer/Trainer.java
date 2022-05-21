@@ -76,4 +76,15 @@ public class Trainer extends AggregateEvent<TrainerID> {
         return this.clientSet.stream().filter(client -> client.identity().equals(clientID)).findFirst();
     }
 
+    public Set<Client> getClientSet() {
+        return clientSet;
+    }
+
+    public Routine getRoutine() {
+        return routine;
+    }
+
+    public Name getName() {
+        return name;
+    }
 }

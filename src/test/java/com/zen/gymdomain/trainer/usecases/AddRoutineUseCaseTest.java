@@ -4,8 +4,8 @@ import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.zen.gymdomain.trainer.commands.AddClient;
-import com.zen.gymdomain.trainer.events.ClientAdded;
+import com.zen.gymdomain.trainer.commands.AddRoutine;
+import com.zen.gymdomain.trainer.events.RoutineAdded;
 import com.zen.gymdomain.trainer.events.TrainerCreated;
 import com.zen.gymdomain.trainer.values.*;
 import org.junit.jupiter.api.Test;
@@ -17,41 +17,38 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class AddClientUseCaseTest {
-
+class AddRoutineUseCaseTest {
     @InjectMocks
-    private AddClientUseCase useCase;
+    private AddRoutineUseCase useCase;
 
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void addClientToTrainerSuccessfully() {
+    void addRoutineToTrainerSuccessfully() {
 //        given
         TrainerID trainerID = TrainerID.of("fakeTrainerID");
-        Name name = new Name("Maria");
-        FitnessLevel fitnessLevel = new FitnessLevel(FitnessLevelEnum.HIGH);
-        PhoneNumber phoneNumber = new PhoneNumber("312987657");
-        var command = new AddClient(trainerID, name, fitnessLevel, phoneNumber);
+        Description description = new Description("routine test case#1");
+        Type type = new Type(TypeEnum.CARDIO);
+        var command = new AddRoutine(trainerID, description, type);
 
-        when(repository.getEventsBy("fakeTrainerID")).thenReturn(history());
+        Mockito.when(repository.getEventsBy("fakeTrainerID")).thenReturn(history());
         useCase.addRepository(repository);
 
 //        when
-        var events = UseCaseHandler.getInstance()
+        List<DomainEvent> domainEvents = UseCaseHandler.getInstance()
                 .setIdentifyExecutor(command.getTrainerID().value())
                 .syncExecutor(useCase, new RequestCommand<>(command))
                 .orElseThrow()
                 .getDomainEvents();
+
 //        assert
-        var event = (ClientAdded) events.get(0);
-        assertEquals("Maria", event.getName().value());
-        assertEquals("312987657", event.getPhoneNumber().value());
-        assertEquals(FitnessLevelEnum.HIGH, event.getFitnessLevel().value());
+        var event = (RoutineAdded) domainEvents.get(0);
+        assertEquals("routine test case#1", event.getDescription().value());
+        assertEquals(TypeEnum.CARDIO, event.getType().value());
         Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
 
@@ -62,5 +59,4 @@ class AddClientUseCaseTest {
         event.setAggregateRootId(trainerID.value());
         return List.of(event);
     }
-
 }

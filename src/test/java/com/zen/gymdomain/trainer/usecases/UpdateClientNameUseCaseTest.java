@@ -4,12 +4,11 @@ import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.zen.gymdomain.trainer.commands.RemoveClient;
 import com.zen.gymdomain.trainer.commands.UpdateClientFitnessLevel;
-import com.zen.gymdomain.trainer.entities.Client;
+import com.zen.gymdomain.trainer.commands.UpdateClientName;
 import com.zen.gymdomain.trainer.events.ClientAdded;
 import com.zen.gymdomain.trainer.events.ClientFitnessLevelUpdated;
-import com.zen.gymdomain.trainer.events.ClientRemoved;
+import com.zen.gymdomain.trainer.events.ClientNameUpdated;
 import com.zen.gymdomain.trainer.events.TrainerCreated;
 import com.zen.gymdomain.trainer.values.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,24 +22,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RemoveClientUseCaseTest {
+class UpdateClientNameUseCaseTest {
 
     @InjectMocks
-    private RemoveClientUseCase useCase;
-
+    private UpdateClientNameUseCase useCase;
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void removeClientFromTrainerSuccessfully() {
+    void updateClientNameSuccessfully() {
 
         TrainerID fakeTrainerID = TrainerID.of("fakeTrainerID");
         ClientID fakeClientID = ClientID.of("fakeClientID");
+        Name name = new Name("davinchi");
 
-        var command = new RemoveClient(fakeTrainerID, fakeClientID);
+        var command = new UpdateClientName(fakeTrainerID, fakeClientID, name);
 
         Mockito.when(repository.getEventsBy("fakeTrainerID")).thenReturn(List.of(
                 new TrainerCreated(new Name("Juan")),
@@ -56,10 +54,9 @@ class RemoveClientUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var event = (ClientRemoved) domainEvents.get(0);
+        var event = (ClientNameUpdated) domainEvents.get(0);
+        assertEquals("davinchi", event.getName().value());
         assertEquals("fakeClientID", event.getClientID().value());
-        assertTrue(event.getWasDeleted());
         Mockito.verify(repository).getEventsBy("fakeTrainerID");
     }
-
 }

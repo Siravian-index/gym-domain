@@ -6,7 +6,7 @@ import co.com.sofka.business.support.ResponseEvents;
 import com.zen.gymdomain.trainer.Trainer;
 import com.zen.gymdomain.trainer.commands.UpdateClientName;
 
-public class UpdateCLientNameUseCase extends UseCase<RequestCommand<UpdateClientName>, ResponseEvents> {
+public class UpdateClientNameUseCase extends UseCase<RequestCommand<UpdateClientName>, ResponseEvents> {
     @Override
     public void executeUseCase(RequestCommand<UpdateClientName> updateClientNameRequestCommand) {
         var command = updateClientNameRequestCommand.getCommand();

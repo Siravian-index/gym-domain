@@ -9,6 +9,7 @@ import com.zen.gymdomain.trainer.values.Name;
 import com.zen.gymdomain.trainer.values.TrainerID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ class CreateTrainerUseCaseTest {
         TrainerCreated trainerCreated = (TrainerCreated) domainEvents.get(0);
         assertEquals("fakeTrainerID", trainerCreated.aggregateRootId());
         assertEquals("Juan", trainerCreated.getName().value());
+
     }
 
 }
