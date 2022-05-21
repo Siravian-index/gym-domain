@@ -11,8 +11,8 @@ import java.util.Objects;
 public class Routine extends Entity<RoutineID> {
 
     private Description description;
-    private IsCompleted isCompleted;
     private Type type;
+    private IsCompleted isCompleted;
     public Routine(RoutineID entityId, Description description, Type type) {
         super(entityId);
         this.description = description;

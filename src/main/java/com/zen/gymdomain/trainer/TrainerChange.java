@@ -2,19 +2,22 @@ package com.zen.gymdomain.trainer;
 
 import co.com.sofka.domain.generic.EventChange;
 import com.zen.gymdomain.trainer.entities.Client;
+import com.zen.gymdomain.trainer.entities.Routine;
 import com.zen.gymdomain.trainer.events.*;
+import com.zen.gymdomain.trainer.values.ClientID;
 
 import java.util.HashSet;
 
 public class TrainerChange extends EventChange {
     TrainerChange(Trainer trainer) {
         apply((TrainerCreated event) -> {
-            trainer.routine = event.getRoutine();
+            trainer.name = event.getName();
             trainer.clientSet = new HashSet<>();
         });
 
         apply((ClientAdded event) -> {
-            trainer.clientSet.add(event.getClient());
+            Client client = new Client(event.getClientID(), event.getName(), event.getFitnessLevel(), event.getPhoneNumber());
+            trainer.clientSet.add(client);
         });
 
         apply((ClientRemoved event) -> {
@@ -37,7 +40,7 @@ public class TrainerChange extends EventChange {
         });
 
         apply((RoutineAdded event) -> {
-            trainer.routine = event.getRoutine();
+            trainer.routine = new Routine(event.getRoutineID(), event.getDescription(), event.getType());
         });
 
         apply((RoutineDescriptionUpdated event) -> {

@@ -11,12 +11,14 @@ public class FrontDeskChange extends EventChange {
 
     public FrontDeskChange(FrontDesk frontDesk) {
         apply((FrontDeskCreated event) -> {
-            frontDesk.membershipSet = event.getMembershipSet();
+            frontDesk.name = event.getName();
+            frontDesk.membershipSet = new HashSet<>();
             frontDesk.merchandiseSet = new HashSet<>();
         });
 
         apply((MembershipAdded event) -> {
-            frontDesk.membershipSet.add(event.getMembership());
+            Membership membership = new Membership(event.getMembershipID(), event.getTier(), event.getPrice());
+            frontDesk.membershipSet.add(membership);
         });
 
         apply((MembershipRemoved event) -> {
@@ -38,7 +40,8 @@ public class FrontDeskChange extends EventChange {
         });
 
         apply((MerchandiseAdded event) -> {
-            frontDesk.merchandiseSet.add(event.getMerchandise());
+            Merchandise merchandise = new Merchandise(event.getMerchandiseID(), event.getProduct(), event.getPrice());
+            frontDesk.merchandiseSet.add(merchandise);
         });
 
         apply((MerchandiseRemoved event) -> {

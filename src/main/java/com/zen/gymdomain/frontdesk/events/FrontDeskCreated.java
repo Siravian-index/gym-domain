@@ -1,29 +1,19 @@
 package com.zen.gymdomain.frontdesk.events;
 
 import co.com.sofka.domain.generic.DomainEvent;
-import com.zen.gymdomain.frontdesk.entities.Membership;
-import com.zen.gymdomain.frontdesk.values.FrontDeskID;
-
-import java.util.Set;
+import com.zen.gymdomain.trainer.values.Name;
 
 public class FrontDeskCreated extends DomainEvent {
-    private final FrontDeskID frontDeskID;
-    private final Set<Membership> membershipSet;
 
-    public FrontDeskCreated(FrontDeskID frontDeskID, Set<Membership> membershipSet) {
+    private final Name name;
+
+    public FrontDeskCreated(Name name) {
         super("com.zen.gymdomain.frontdesk.frontdeskcreated");
-        this.frontDeskID = frontDeskID;
-        this.membershipSet = membershipSet;
+        this.name = name;
     }
 
-    public FrontDeskID getFrontDeskID() {
-        return frontDeskID;
+
+    public Name getName() {
+        return name;
     }
-
-    public Set<Membership> getMembershipSet() {
-        return membershipSet;
-    }
-
-//    events
-
 }

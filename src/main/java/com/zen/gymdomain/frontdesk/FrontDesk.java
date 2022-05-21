@@ -6,6 +6,7 @@ import com.zen.gymdomain.frontdesk.entities.Membership;
 import com.zen.gymdomain.frontdesk.entities.Merchandise;
 import com.zen.gymdomain.frontdesk.events.*;
 import com.zen.gymdomain.frontdesk.values.*;
+import com.zen.gymdomain.trainer.values.Name;
 
 import java.util.List;
 import java.util.Set;
@@ -13,9 +14,10 @@ import java.util.Set;
 public class FrontDesk extends AggregateEvent<FrontDeskID> {
     protected Set<Merchandise> merchandiseSet;
     protected Set<Membership> membershipSet;
-    public FrontDesk(FrontDeskID entityId, Set<Membership> membershipSet) {
+    protected Name name;
+    public FrontDesk(FrontDeskID entityId, Name name) {
         super(entityId);
-        appendChange(new FrontDeskCreated(entityId, membershipSet)).apply();
+        appendChange(new FrontDeskCreated(name)).apply();
 
     }
     private FrontDesk(FrontDeskID entityId) {
@@ -30,8 +32,9 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
     }
 
 //    events
-    public void addMembership(Membership membership) {
-        appendChange(new MembershipAdded(membership)).apply();
+    public void addMembership(Tier tier, Price price) {
+        MembershipID membershipID = new MembershipID();
+        appendChange(new MembershipAdded(membershipID, tier, price)).apply();
     }
 
     public void removeMembership(MembershipID membershipID) {
@@ -46,8 +49,9 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
         appendChange(new MembershipPriceUpdated(membershipID, price)).apply();
     }
 
-    public void addMerchandise(Merchandise merchandise) {
-        appendChange(new MerchandiseAdded(merchandise)).apply();
+    public void addMerchandise(Product product, Price price) {
+        MerchandiseID entityId = new MerchandiseID();
+        appendChange(new MerchandiseAdded(entityId, product, price)).apply();
     }
 
     public void removeMerchandise(MerchandiseID merchandiseID) {

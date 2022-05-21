@@ -13,8 +13,11 @@ public class Client extends Entity<ClientID> {
     private FitnessLevel fitnessLevel;
     private Name name;
     private PhoneNumber phoneNumber;
-    public Client(ClientID entityId) {
+    public Client(ClientID entityId, Name name, FitnessLevel fitnessLevel, PhoneNumber phoneNumber) {
         super(entityId);
+        this.name = name;
+        this.fitnessLevel = fitnessLevel;
+        this.phoneNumber = phoneNumber;
     }
 
 

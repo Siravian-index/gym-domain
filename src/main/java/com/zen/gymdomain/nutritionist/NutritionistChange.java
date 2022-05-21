@@ -8,19 +8,21 @@ import com.zen.gymdomain.nutritionist.values.IsWaiting;
 import com.zen.gymdomain.nutritionist.values.PatientID;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class NutritionistChange extends EventChange {
     public NutritionistChange(Nutritionist nutritionist) {
         apply((NutritionistCreated event) -> {
-            nutritionist.patientSet = event.getPatientSet();
+            nutritionist.name = event.getName();
+            nutritionist.patientSet = new HashSet<>();
             nutritionist.dietMap = new HashMap<>();
         });
 
         apply((PatientAdded event) -> {
-            nutritionist.patientSet.add(event.getPatient());
-            PatientID key = event.getPatient().identity();
-            Diet value = event.getDiet();
-            nutritionist.dietMap.put(key, value);
+            Patient patient = new Patient(event.getPatientID(), event.getName(), event.getWeightStatus());
+            Diet diet = new Diet(event.getDietID(), event.getDietType(), event.getDescription());
+            nutritionist.patientSet.add(patient);
+            nutritionist.dietMap.put(event.getPatientID(), diet);
         });
 
         apply((PatientRemoved event) -> {
