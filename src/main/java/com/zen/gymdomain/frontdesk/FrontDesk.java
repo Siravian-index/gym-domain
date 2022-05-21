@@ -49,7 +49,7 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
         appendChange(new MembershipPriceUpdated(membershipID, price)).apply();
     }
 
-    public void addMerchandise(Product product, Price price) { //change this
+    public void addMerchandise(Product product, Price price) {
         MerchandiseID entityId = new MerchandiseID();
         appendChange(new MerchandiseAdded(entityId, product, price)).apply();
     }
