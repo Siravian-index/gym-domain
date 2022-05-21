@@ -54,8 +54,9 @@ public class Trainer extends AggregateEvent<TrainerID> {
         appendChange(new ClientNameUpdated(clientID, name)).apply();
     }
 
-    public void addRoutine(Routine routine) { //change this
-        appendChange(new RoutineAdded(routine)).apply();
+    public void addRoutine(Description description, Type type) { //change this
+        RoutineID routineID = new RoutineID();
+        appendChange(new RoutineAdded(routineID, description, type)).apply();
     }
 
     public void updateRoutineDescription(Description description) {

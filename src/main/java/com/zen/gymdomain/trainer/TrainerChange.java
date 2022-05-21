@@ -40,7 +40,7 @@ public class TrainerChange extends EventChange {
         });
 
         apply((RoutineAdded event) -> {
-            trainer.routine = event.getRoutine();
+            trainer.routine = new Routine(event.getRoutineID(), event.getDescription(), event.getType());
         });
 
         apply((RoutineDescriptionUpdated event) -> {
