@@ -40,7 +40,8 @@ public class FrontDeskChange extends EventChange {
         });
 
         apply((MerchandiseAdded event) -> {
-            frontDesk.merchandiseSet.add(event.getMerchandise());
+            Merchandise merchandise = new Merchandise(event.getMerchandiseID(), event.getProduct(), event.getPrice());
+            frontDesk.merchandiseSet.add(merchandise);
         });
 
         apply((MerchandiseRemoved event) -> {
