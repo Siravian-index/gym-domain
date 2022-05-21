@@ -32,7 +32,7 @@ public class FrontDesk extends AggregateEvent<FrontDeskID> {
     }
 
 //    events
-    public void addMembership(Tier tier, Price price) { //change this
+    public void addMembership(Tier tier, Price price) {
         MembershipID membershipID = new MembershipID();
         appendChange(new MembershipAdded(membershipID, tier, price)).apply();
     }
